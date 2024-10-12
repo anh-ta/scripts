@@ -22,7 +22,7 @@ function Remove-AppxPackageByName {
         # Remove provisioned app (for new users)
         Write-Output "Removing provisioned $appName for new users..."
         Get-AppxProvisionedPackage -Online | Where-Object DisplayName -EQ $appName | ForEach-Object { 
-            Remove-AppxProvisionedPackage -Online -PackageName $_.PackageName -ErrorAction Stop -ErrorAction SilentlyContinue
+            Remove-AppxProvisionedPackage -Online -PackageName $_.PackageName -ErrorAction SilentlyContinue
         }
 
         Write-Output "$appName removed successfully."
