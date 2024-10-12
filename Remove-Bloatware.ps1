@@ -16,7 +16,7 @@ function Remove-AppxPackageByName {
         # Remove for current user
         Write-Output "Removing $appName for current user..."
         Get-AppxPackage -Name $appName | ForEach-Object { 
-            $_ | Remove-AppxPackage -ErrorAction Stop -ErrorAction SilentlyContinue
+            $_ | Remove-AppxPackage -ErrorAction SilentlyContinue
         }
 
         # Remove provisioned app (for new users)
