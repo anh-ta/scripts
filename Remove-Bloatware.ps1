@@ -15,12 +15,14 @@ function Remove-AppxPackageByName {
     try {
         # Remove for current user
         Write-Output "Removing $appName for current user..."
-        Get-AppxPackage -Name $appName -AllUsers | Remove-AppxPackage -ErrorAction SilentlyContinue
+        Get-AppxPackage -Name $appName | ForEach-Object { 
+            $_ | Remove-AppxPackage -ErrorAction Stop -ErrorAction SilentlyContinue
+        }
 
         # Remove provisioned app (for new users)
         Write-Output "Removing provisioned $appName for new users..."
         Get-AppxProvisionedPackage -Online | Where-Object DisplayName -EQ $appName | ForEach-Object { 
-            Remove-AppxProvisionedPackage -Online -PackageName $_.PackageName -ErrorAction SilentlyContinue
+            Remove-AppxProvisionedPackage -Online -PackageName $_.PackageName -ErrorAction Stop -ErrorAction SilentlyContinue
         }
 
         Write-Output "$appName removed successfully."
@@ -66,15 +68,15 @@ foreach ($app in $bloatwareApps) {
 
 # Clean up remaining Xbox-related services
 Write-Host "Removing Xbox Services..." -ForegroundColor Cyan
-Get-AppxPackage *xbox* -AllUsers | Remove-AppxPackage -ErrorAction SilentlyContinue
+Get-AppxPackage *xbox* | ForEach-Object { $_ | Remove-AppxPackage -ErrorAction Stop -ErrorAction SilentlyContinue }
 Get-AppxProvisionedPackage -Online | Where-Object DisplayName -match "xbox" | ForEach-Object {
-    Remove-AppxProvisionedPackage -Online -PackageName $_.PackageName -ErrorAction SilentlyContinue
+    Remove-AppxProvisionedPackage -Online -PackageName $_.PackageName -ErrorAction Stop -ErrorAction SilentlyContinue
 }
 
 # Remove Other Specific Services
 Write-Host "Removing other specific bloatware services..." -ForegroundColor Cyan
-Get-AppxPackage -AllUsers | Where-Object { $_.Name -like "*OneNote*" -or $_.Name -like "*News*" -or $_.Name -like "*Weather*" -or $_.Name -like "*Game*" } | ForEach-Object {
-    $_ | Remove-AppxPackage -ErrorAction SilentlyContinue
+Get-AppxPackage | Where-Object { $_.Name -like "*OneNote*" -or $_.Name -like "*News*" -or $_.Name -like "*Weather*" -or $_.Name -like "*Game*" } | ForEach-Object {
+    $_ | Remove-AppxPackage -ErrorAction Stop -ErrorAction SilentlyContinue
 }
 
 Write-Host "All specified bloatware and built-in games have been removed." -ForegroundColor Green
