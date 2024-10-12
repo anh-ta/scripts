@@ -25,7 +25,7 @@ function Remove-AppxPackageByName {
 
         Write-Output "$appName removed successfully."
     } catch {
-        Write-Error "Failed to remove $appName: $_"
+        Write-Error "Failed to remove $appName: $($_.Exception.Message)"
     }
 }
 
