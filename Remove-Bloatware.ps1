@@ -61,7 +61,11 @@ $bloatwareApps = @(
     "PandoraMediaInc.29680B314EFC2",
     "DolbyLaboratories.DolbyAccess",
     "TuneIn.TuneInRadio",
-    "Twitter.Twitter"
+    "Twitter.Twitter",
+    "Disney.ESPN",
+    "Facebook.FacebookManager",
+    "AmazonVideo.PrimeVideo",
+    "TikTok.TikTok"
 )
 
 # Loop through each app and remove it
