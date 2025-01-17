@@ -21,7 +21,7 @@ $applications = @(
         PackageName = "vscode"
     },
     @(
-        Name = "Dell Command Update", 
+        Name = "Dell Command Update"
         PackageName = "Dell.CommandUpdate"
     )
 )
