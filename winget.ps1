@@ -19,7 +19,11 @@ $applications = @(
     @{
         Name = "VS Code"
         PackageName = "vscode"
-    }
+    },
+    @(
+        Name = "Dell Command Update", 
+        PackageName = "Dell.CommandUpdate"
+    )
 )
 
 function Show-Menu {
