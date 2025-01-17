@@ -22,27 +22,31 @@ $applications = @(
     }
 )
 
-# Sort applications alphabetically by name
-$applications = $applications | Sort-Object -Property Name
-
 function Show-Menu {
+    # Sort the applications alphabetically before displaying
+    $sortedApplications = $applications | Sort-Object -Property Name
+
     Write-Host "Application Installation Menu"
     Write-Host "========================================="
     $i = 1
-    foreach ($app in $applications) {
+    foreach ($app in $sortedApplications) {
         Write-Host "$i. $($app.Name)"
         $i++
     }
     Write-Host "0. Exit"
     Write-Host "========================================="
+
+    # Return sorted applications for use elsewhere
+    return $sortedApplications
 }
 
 function Install-Application {
     param (
-        [int]$index
+        [int]$index,
+        [array]$sortedApplications
     )
-    if ($index -ge 1 -and $index -le $applications.Count) {
-        $app = $applications[$index - 1]
+    if ($index -ge 1 -and $index -le $sortedApplications.Count) {
+        $app = $sortedApplications[$index - 1]
         Write-Host "Installing $($app.Name)..."
         $command = "winget install $($app.PackageName) --scope machine --accept-package-agreements --accept-source-agreements"
         Invoke-Expression $command
@@ -53,13 +57,13 @@ function Install-Application {
 
 # Main loop
 do {
-    Show-Menu
+    $sortedApplications = Show-Menu
     $choice = Read-Host "Enter your choice (number):"
     if ($choice -eq 0) {
         Write-Host "Exiting script. Goodbye!"
         break
     } elseif ($choice -match "^\d+$") {
-        Install-Application -index [int]$choice
+        Install-Application -index [int]$choice -sortedApplications $sortedApplications
     } else {
         Write-Host "Invalid input. Please enter a number."
     }
