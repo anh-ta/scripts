@@ -1,5 +1,6 @@
 # Script to install applications using WinGet
-
+# Author: Your Name
+# Date: YYYY-MM-DD
 
 # Define applications in an array of hashtables for easy maintenance
 $applications = @(
@@ -22,6 +23,10 @@ $applications = @(
     @{
         Name = "Dell Command Update"
         PackageName = "Dell.CommandUpdate"
+    },
+    @{
+        Name = "Windows Apps"
+        PackageName = "9N1F85V9T8BN"
     }
 )
 
@@ -48,6 +53,7 @@ function Install-Application {
         [int]$index,
         [array]$sortedApplications
     )
+
     if ($index -ge 1 -and $index -le $sortedApplications.Count) {
         $app = $sortedApplications[$index - 1]
         Write-Host "Installing $($app.Name)..."
@@ -66,7 +72,7 @@ do {
         Write-Host "Exiting script. Goodbye!"
         break
     } elseif ($choice -match "^\d+$") {
-        Install-Application -index [int]$choice -sortedApplications $sortedApplications
+        Install-Application -index $choice -sortedApplications $sortedApplications
     } else {
         Write-Host "Invalid input. Please enter a number."
     }
