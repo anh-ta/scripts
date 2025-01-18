@@ -1,6 +1,5 @@
 # Script to install applications using WinGet
-# Author: Your Name
-# Date: YYYY-MM-DD
+
 
 # Define applications in an array of hashtables for easy maintenance
 $applications = @(
@@ -20,10 +19,10 @@ $applications = @(
         Name = "VS Code"
         PackageName = "vscode"
     },
-    @(
+    @{
         Name = "Dell Command Update"
         PackageName = "Dell.CommandUpdate"
-    )
+    }
 )
 
 function Show-Menu {
