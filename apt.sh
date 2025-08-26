@@ -10,9 +10,9 @@
 set -euo pipefail
 
 # -------- Defaults --------
-REBOOT_TIME="02:00"          # Set to empty "" to reboot ASAP after updates
-DO_DRY_RUN=1                 # 1 = simulate first run, 0 = actually apply on first run
-FORCE_REBOOT_NOW_ONCE=0      # 1 = if updates require reboot, reboot at end of script once
+REBOOT_TIME=""               # Empty = reboot ASAP after updates
+DO_DRY_RUN=0                 # 0 = actually apply updates right away
+FORCE_REBOOT_NOW_ONCE=1      # 1 = reboot once at end if needed
 
 # -------- Args parsing ----
 while [[ $# -gt 0 ]]; do
