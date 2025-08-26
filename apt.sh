@@ -5,7 +5,8 @@
 #   bash setup-unattended-upgrades.sh --reboot-time 02:00
 #   bash setup-unattended-upgrades.sh --reboot-time 03:30 --no-dry-run
 #   bash setup-unattended-upgrades.sh --reboot-now-once   (forces a single reboot at end if needed)
-#  curl -fsSL https://raw.githubusercontent.com/<USER>/<REPO>/main/setup-unattended-upgrades.sh | sudo bash
+#   curl -fsSL https://raw.githubusercontent.com/anh-ta/scripts/main/apt.sh | sudo bash
+
 
 set -euo pipefail
 
