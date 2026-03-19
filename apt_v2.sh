@@ -1,3 +1,4 @@
+export DEBIAN_FRONTEND=noninteractive
 #!/bin/bash
 
 # Ensure the script is run as root
