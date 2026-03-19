@@ -60,3 +60,22 @@ echo "Setup Complete!"
 echo "Updates will run daily. Reboots at $REBOOT_TIME if needed."
 echo "Alerts will be sent to $RECIPIENT_EMAIL from $SENDER_EMAIL."
 echo "------------------------------------------------"
+
+# 5. Send a Confirmation Email
+echo "Sending setup confirmation to $RECIPIENT_EMAIL..."
+
+# Define the email body
+MESSAGE="Hello,
+
+This is an automated message to confirm that Unattended Upgrades have been successfully configured on:
+Hostname: $(hostname)
+IP Address: $(hostname -I | awk '{print $1}')
+Timezone: $(cat /etc/timezone)
+Reboot Schedule: $REBOOT_TIME (if required)
+
+You will receive an email summary whenever updates are installed."
+
+# Send the mail
+echo "$MESSAGE" | mail -s "SUCCESS: Auto-Upgrades Configured on $(hostname)" "$RECIPIENT_EMAIL"
+
+echo "Confirmation email sent!"
